@@ -7,40 +7,8 @@ const BSE = require('sharewatch').BSE;
 var app = new express();
 app.use(cors());
 
-const admin = require('./node_modules/firebase-admin');
-const firebaseConfig = require('./config.js');
-const serviceAccount = require('./serviceAccount.json');
-const data = require("./sectorList.json");
-
-const collectionKey = "sectorList"; //name of the collection
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: firebaseConfig.databaseURL
-});
-
-const firestore = admin.firestore();
-const settings = {timestampsInSnapshots: true};
-firestore.settings(settings);
-
-
 var urlencodedParser=bodyParser.urlencoded({extended : false});
 
-app.get('/insert-json', function(req,res)
-{
-    if (data) {
-        data.forEach(docKey => {
-         firestore.collection(collectionKey).doc().set(docKey).then((res) => {
-            console.log("Document " + docKey + " successfully written!");
-        }).catch((error) => {
-           console.error("Error writing document: ", error);
-        });
-        });
-        }
-
-    res.json({"data":'success'})
-
-});
- 
 var NSEAPI = API.NSE;
 
 
