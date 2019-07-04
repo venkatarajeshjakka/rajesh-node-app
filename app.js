@@ -7,7 +7,7 @@ const BSE = require('sharewatch').BSE;
 var app = new express();
 app.use(cors());
 
-var urlencodedParser=bodyParser.urlencoded({extended : false});
+app.use(bodyParser.urlencoded({extended : false}));
 
 var NSEAPI = API.NSE;
 
@@ -23,9 +23,11 @@ app.get('/get-nse-stocks',function(req, res) {
     })
 } );
 
+//To get quote info with stock code
 app.get('/api/get-quote-info',function(req,res)
 {
-     NSE.quote('IBULHSGFIN').then((result) =>
+    const quoteName = req.query.stockCode || 'IBULHSGFIN';
+     NSE.quote(quoteName).then((result) =>
      {
          res.json(result);
      }).catch((err) =>
