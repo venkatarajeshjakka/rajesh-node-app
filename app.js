@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({extended : false}));
 var NSEAPI = API.NSE;
 
 
-app.get('/get-nse-stocks',function(req, res) {
+app.get('/api/get-nse-stocks',function(req, res) {
     NSE.equityList()
     .then((result) => {
         
@@ -33,6 +33,7 @@ app.get('/api/get-quote-info',function(req,res)
      }).catch((err) =>
      {
          console.log('some error in fetching');
+         res.json(err);
      });
 
 });
@@ -67,7 +68,10 @@ app.get('/api/get52WeekHigh',function(req,res)
     .then(function (response) { 
    
    res.json(response.data);
-    });
+    }).catch(err =>
+        {
+            res.json(err);
+        });
 
 });
 
