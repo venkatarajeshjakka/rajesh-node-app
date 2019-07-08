@@ -46,6 +46,7 @@ app.get('/api/get-peer-comparison',function(req,res)
      }).catch((err) =>
      {
          console.log('some error in fetching');
+         res.json(err);
      });
 
 });
