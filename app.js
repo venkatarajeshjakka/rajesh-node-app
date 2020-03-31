@@ -17,7 +17,7 @@ app.get('/api/get-nse-stocks', async (req, res) => {
     
     await yahooFinance.quote({
     symbols: stockCodeArray,
-    modules: [ 'price', 'summaryDetail','summaryProfile','financialData' ] // see the docs for the full list
+    modules: [ 'price', 'summaryDetail','summaryProfile','financialData','earnings' ] // see the docs for the full list
         },  (err, quotes) => {
         res.json(quotes);
     // ...
@@ -55,4 +55,5 @@ try{
 var server = app.listen(process.env.PORT || 8080, function () {
     var port = server.address().port;
     console.log("App now running on port", port);
+    
   });
