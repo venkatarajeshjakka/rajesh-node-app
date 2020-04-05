@@ -3,9 +3,9 @@ const config = require("./config");
 const csvjson = require("csvjson");
 
 const topGainer = async () => {
-  console.log(config.top_gainer_url);
+  
   var response = await axios.get(config.top_gainer_url);
-  console.log(response);
+ 
   if (response) return response.data;
 };
 
@@ -29,8 +29,7 @@ const yearLow = async () => {
   if (response) return response.data;
 };
 const equityList = async () => {
-  console.log("called happened");
-  console.log(config.stocks_csv_url);
+  
   var response = await axios.get(config.stocks_csv_url);
 
   if (response.data) {

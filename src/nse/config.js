@@ -17,11 +17,18 @@ const preopen_nifty_url = `${liveMarket}/live_analysis/pre_open/nifty.json`;
 const headers = {
   Accept: "*/*",
   "Accept-Language": "en-US,en;q=0.5",
-  Host: "www1.nseindia.com",
+  "Host":"www.nseindia.com",
+  "DNT":"1",
   "User-Agent":
-    "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:28.0) Gecko/20100101 Firefox/28.0",
-  "X-Requested-With": "XMLHttpRequest"
+  "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.97 Safari/537.11",
+  "X-Requested-With": "XMLHttpRequest",
+  "Accept-Encoding": "gzip,deflate,sdch",
+  "Referer": "https://www.nseindia.com",
+  "encoding": "null",
+  "Cookie": "cookie"
 };
+
+
 
 module.exports = {
   get_quote_url,
