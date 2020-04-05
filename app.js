@@ -37,9 +37,13 @@ app.get("/api/get-nse-stocks", async (req, res) => {
 });
 
 app.get("/api/top-gainers", async (req, res) => {
-  var response = await nseData.topGainer();
+  try {
+    var response = await nseData.topGainer();
 
-  return res.status(200).json(response);
+    return res.status(200).json(response);
+  } catch (err) {
+    return res.status(422).send(err.message);
+  }
 });
 
 app.get("/api/equity-list", async (req, res) => {
@@ -48,13 +52,11 @@ app.get("/api/equity-list", async (req, res) => {
   return res.status(200).json(response);
 });
 
-
 app.get("/api/year-high", async (req, res) => {
   var response = await nseData.yearHigh();
 
   return res.status(200).json(response);
 });
-
 
 app.get("/api/year-low", async (req, res) => {
   var response = await nseData.yearLow();
