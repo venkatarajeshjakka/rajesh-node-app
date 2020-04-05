@@ -42,7 +42,7 @@ app.get("/api/top-gainers", async (req, res) => {
 
     return res.status(200).json(response);
   } catch (err) {
-    return res.status(422).send(err.message);
+    return res.status(422).send(err);
   }
 });
 

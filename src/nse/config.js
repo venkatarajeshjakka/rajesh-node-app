@@ -18,14 +18,9 @@ const headers = {
   Accept: "*/*",
   "Accept-Language": "en-US,en;q=0.5",
   Host: "www.nseindia.com",
-  DNT: "1",
   "User-Agent": "request-promise",
   Connection: "keep-alive",
-  "X-Requested-With": "XMLHttpRequest",
-  "Accept-Encoding": "gzip,deflate,sdch",
-  Referer: "https://www.nseindia.com",
-  encoding: "null",
-  Cookie: "cookie"
+  Referer: "https://www.nseindia.com"
 };
 
 module.exports = {
