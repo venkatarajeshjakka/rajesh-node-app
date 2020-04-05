@@ -17,8 +17,10 @@ const preopen_nifty_url = `${liveMarket}/live_analysis/pre_open/nifty.json`;
 const headers = {
   Accept: "*/*",
   "Accept-Language": "en-US,en;q=0.5",
-  Host: "www.nseindia.com",
-  "User-Agent": "request-promise",
+  "Accept-Encoding": "gzip, deflate, br",
+  Host: "www1.nseindia.com",
+  "User-Agent":
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36",
   Connection: "keep-alive",
   Referer: "https://www.nseindia.com"
 };
