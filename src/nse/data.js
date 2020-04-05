@@ -5,7 +5,7 @@ const csvjson = require("csvjson");
 const topGainer = async () => {
   
   var response = await axios.get(config.top_gainer_url);
- 
+ console.log(response)
   if (response) return response.data;
 };
 
