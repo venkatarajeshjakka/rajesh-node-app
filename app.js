@@ -36,6 +36,28 @@ app.get("/api/get-nse-stocks", async (req, res) => {
   }
 });
 
+app.get("/api/get-nse-stocks-price", async (req, res) => {
+  const quoteName = req.query.stockCode || "IBULHSGFIN.NS";
+
+  var stockCodeArray = quoteName.split(",");
+  try {
+    await yahooFinance.quote(
+      {
+        symbols: stockCodeArray,
+        modules: [
+          "price"
+        ] // see the docs for the full list
+      },
+      (err, quotes) => {
+        res.json(quotes);
+        // ...
+      }
+    );
+  } catch (err) {
+    return res.status(422).send(err.message);
+  }
+});
+
 app.get("/api/top-gainers", async (req, res) => {
   try {
     var response = await nseData.topGainer();
