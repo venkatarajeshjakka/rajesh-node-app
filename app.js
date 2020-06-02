@@ -6,7 +6,8 @@ var nseData = require("./src/nse/data");
 var app = new express();
 app.use(cors());
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 var yahooFinance = require("yahoo-finance");
 
 app.get("/api/get-nse-stocks", async (req, res) => {
@@ -44,9 +45,7 @@ app.get("/api/get-nse-stocks-price", async (req, res) => {
     await yahooFinance.quote(
       {
         symbols: stockCodeArray,
-        modules: [
-          "price"
-        ] // see the docs for the full list
+        modules: ["price"] // see the docs for the full list
       },
       (err, quotes) => {
         res.json(quotes);
@@ -98,29 +97,36 @@ app.get("/api/monthly-active", async (req, res) => {
   return res.status(200).json(response);
 });
 
-app.get("/api/nse-historical-data", async (req, res) => {
-  const quoteName = req.query.stockCode || "IBULHSGFIN.NS";
-  var stockCodeArray = quoteName.split(",");
-  var todayDate = moment().format("YYYY-MM-DD");
-  var threemonthsDate = moment()
-    .add(-3, "M")
-    .format("YYYY-MM-DD");
+app.post("/api/nse-historical-data", async (req, res) => {
+  const quote = req.body.stockCode;
+  const noOfMonths = req.body.months;
 
-  try {
-    await yahooFinance.historical(
-      {
-        symbols: stockCodeArray,
-        from: threemonthsDate,
-        to: todayDate,
-        period: "d"
-      },
-      (err, quotes) => {
-        res.json(quotes);
-        // ...
-      }
-    );
-  } catch (err) {
-    return res.status(422).send(err.message);
+  var months = Number(noOfMonths);
+  if (months === "NaN") {
+    console.log("Invalid data");
+    return res.status(422).send("Invalid date");
+  } else {
+    var todayDate = moment().format("YYYY-MM-DD");
+    var fromDate = moment()
+      .add(-months, "M")
+      .format("YYYY-MM-DD");
+
+    try {
+      await yahooFinance.historical(
+        {
+          symbol: quote,
+          from: fromDate,
+          to: todayDate,
+          period: "d"
+        },
+        (err, quotes) => {
+          res.json(quotes);
+          // ...
+        }
+      );
+    } catch (err) {
+      return res.status(422).send(err.message);
+    }
   }
 });
 
