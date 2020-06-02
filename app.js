@@ -106,7 +106,7 @@ app.post("/api/nse-historical-data", async (req, res) => {
     console.log("Invalid data");
     return res.status(422).send("Invalid date");
   } else {
-    var todayDate = moment().format("YYYY-MM-DD");
+    var todayDate = moment().add(1,"day").format("YYYY-MM-DD");
     var fromDate = moment()
       .add(-months, "M")
       .format("YYYY-MM-DD");
